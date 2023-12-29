@@ -4,7 +4,7 @@ CREATE ENV FILE :
 
 RUN : 
 
-    - go run main.go
+    - go run .
 
 
 
