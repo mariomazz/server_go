@@ -10,7 +10,7 @@ import (
 
 func getRoot(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("got / request\n")
-	io.WriteString(w, "This is my website!\n")
+	io.WriteString(w, "This is my server!\n")
 
 }
 func getHello(w http.ResponseWriter, r *http.Request) {
@@ -27,9 +27,9 @@ func main() {
 	http.HandleFunc("/", getRoot)
 	http.HandleFunc("/hello", getHello)
 	http.HandleFunc("/ipaddress", getIpAddress)
-	fmt.Printf("Server Started :post 3333\n")
+	fmt.Printf("Server Started :post 1400\n")
 
-	err := http.ListenAndServe(":3333", nil)
+	err := http.ListenAndServe(":1400", nil)
 	if errors.Is(err, http.ErrServerClosed) {
 		fmt.Printf("server closed\n")
 	} else if err != nil {
