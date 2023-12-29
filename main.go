@@ -3,33 +3,27 @@ package main
 import (
 	"errors"
 	"fmt"
-	"io"
+	"log"
 	"net/http"
 	"os"
+	"github.com/joho/godotenv"
 )
 
-func getRoot(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("got / request\n")
-	io.WriteString(w, "This is my server!\n")
-
-}
-func getHello(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("got / hello request\n")
-	io.WriteString(w, "Hello, HTTP!\n")
-}
-
-func getIpAddress(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("got / getIpAddress\n")
-	io.WriteString(w, "Id Address => "+r.Host+"\n")
+func init() {
+    // loads values from .env into the system
+    if err := godotenv.Load(); err != nil {
+        log.Print("No .env file found")
+    }
 }
 
 func main() {
+	port := os.Getenv("HTTP_PORT")
 	http.HandleFunc("/", getRoot)
 	http.HandleFunc("/hello", getHello)
 	http.HandleFunc("/ipaddress", getIpAddress)
-	fmt.Printf("Server Started :post 1400\n")
+	fmt.Printf("Server Started :post " + port + "\n")
 
-	err := http.ListenAndServe(":1400", nil)
+	err := http.ListenAndServe(":" + port, nil)
 	if errors.Is(err, http.ErrServerClosed) {
 		fmt.Printf("server closed\n")
 	} else if err != nil {
@@ -37,3 +31,4 @@ func main() {
 		os.Exit(1)
 	}
 }
+
