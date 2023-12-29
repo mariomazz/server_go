@@ -21,7 +21,7 @@ func main() {
 	http.HandleFunc("/", getRoot)
 	http.HandleFunc("/hello", getHello)
 	http.HandleFunc("/ipaddress", getIpAddress)
-	fmt.Printf("Server Started :post " + port + "\n")
+	fmt.Printf("Server Started port: " + port + "\n")
 
 	err := http.ListenAndServe(":" + port, nil)
 	if errors.Is(err, http.ErrServerClosed) {
